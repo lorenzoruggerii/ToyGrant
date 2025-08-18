@@ -19,7 +19,8 @@ def chunk_list_truncate(lst, real_context_length):
     n = (len(lst) // real_context_length) * real_context_length
     return [lst[i:i+real_context_length] for i in range(0, n, real_context_length)]
 
-CHROMS = [f"chr{i}" for i in range(1, 23)] + ["chrX", "chrY"] 
+# CHROMS = [f"chr{i}" for i in range(1, 3)] # + ["chrX", "chrY"]
+CHROMS = ['chr1', 'chr22']
 
 class DatasetCreator:
     def __init__(self, cfg: DatasetCfg):
@@ -88,9 +89,10 @@ class DatasetCreator:
                 assert len(label) == len(seq) == len(sig) == self.cfg.pseudo_context
 
                 # Chunk to real_context size
-                seq = chunk_list_truncate(seq, self.cfg.real_context)
-                sig = chunk_list_truncate(sig, self.cfg.real_context)
-                label = chunk_list_truncate(label, self.cfg.real_context)
+                if self.cfg.is_mamboros_dataset:
+                    seq = chunk_list_truncate(seq, self.cfg.real_context)
+                    sig = chunk_list_truncate(sig, self.cfg.real_context)
+                    label = chunk_list_truncate(label, self.cfg.real_context)
 
                 if 'N' not in seq:
                     self.dataset.append({
@@ -124,9 +126,10 @@ class DatasetCreator:
                     label = np.zeros((self.cfg.pseudo_context,)).tolist()
 
                     # Chunk to real_context size
-                    seq = chunk_list_truncate(seq, self.cfg.real_context)
-                    sig = chunk_list_truncate(sig, self.cfg.real_context)
-                    label = chunk_list_truncate(label, self.cfg.real_context)
+                    if self.cfg.is_mamboros_dataset:
+                        seq = chunk_list_truncate(seq, self.cfg.real_context)
+                        sig = chunk_list_truncate(sig, self.cfg.real_context)
+                        label = chunk_list_truncate(label, self.cfg.real_context)
 
                     if 'N' not in seq:
                         self.dataset.append({
@@ -158,7 +161,8 @@ class DNAseSeqDataset(Dataset):
     
     def __init__(self, tokenized_dataset):
         self.input_ids = tokenized_dataset['input_ids']
-        self.labels = tokenized_dataset['signal']
+        self.signal = tokenized_dataset['signal']
+        self.labels = tokenized_dataset['label']
     
     def __len__(self):
         return len(self.input_ids)
@@ -167,7 +171,8 @@ class DNAseSeqDataset(Dataset):
 
         return {
             "input_ids": self.input_ids[idx],
-            "labels": self.labels[idx]
+            "signal": self.signal[idx],
+            "label": self.labels[idx]
         }
     
 if __name__ == '__main__':
