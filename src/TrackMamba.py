@@ -14,12 +14,15 @@ class TrackMamba(nn.Module):
         self.pos_emb = nn.Embedding(self.cfg.context_len, self.cfg.hidden_dim)
 
         self.MambaBloks = nn.ModuleList([
-            Mamba2(
+            nn.ModuleDict({
+                "mamba": Mamba2(
                 d_model=self.cfg.hidden_dim,
                 d_state=64,
                 d_conv=4,
                 expand=2
-            )
+                ),
+                "norm": nn.LayerNorm(self.cfg.hidden_dim)
+            })
             for _ in range(self.cfg.num_layers)
         ])
 
@@ -37,8 +40,9 @@ class TrackMamba(nn.Module):
         x = embs + pos_embs
 
         # Run into Mamba2 blocks
-        for block in self.MambaBloks:
-            x = block(x)
+        for blk in self.MambaBloks:
+            x = blk["mamba"](x)
+            x = blk["norm"](x)
 
         # Get track value
         track_out = self.track_head(x).squeeze(-1)

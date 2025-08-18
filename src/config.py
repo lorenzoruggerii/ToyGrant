@@ -76,6 +76,7 @@ class TrackMambaTrainerCfg:
         - test_chroms: chromosomes used for testing
         - comb_factor: relative weight for classification loss
         - save_path: where to save trained model
+        - seed: for reproducibility
     """
     lr: float = 3e-5
     batch_size: int = 4
@@ -89,5 +90,6 @@ class TrackMambaTrainerCfg:
     train_chroms: List[str] = field(default_factory=lambda: ["chr1"])
     test_chroms: List[str] = field(default_factory=lambda: ["chr22"])
     comb_factor: float = 1.0
-    wandb_name: str = f"TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda"
+    wandb_name: str = f"TrackMambaNorm_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda"
     save_path: str = f"models/ToyGrant/TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda.pt"
+    seed: int = 42

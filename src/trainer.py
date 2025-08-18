@@ -130,6 +130,8 @@ class TrackMambaTrainer:
         }
     
     def train(self):
+
+        torch.manual_seed(self.cfg.seed)
         
         progress_bar = tqdm.tqdm(
             range(self.cfg.num_epochs * len(self.train_dataloader())),
@@ -223,6 +225,9 @@ if __name__ == '__main__':
     # Initialize config files
     trainer_cfg = TrackMambaTrainerCfg()
     model_cfg = TrackMambaConfig()
+
+    # Set seed for reproducibility
+    torch.manual_seed(trainer_cfg.seed)
 
     # Initialize trainer and train
     trainer = TrackMambaTrainer(trainer_cfg=trainer_cfg, model_cfg=model_cfg)
