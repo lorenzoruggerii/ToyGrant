@@ -51,6 +51,13 @@ class TrackMamba(nn.Module):
         peak_out = self.class_head(x).squeeze(-1)
 
         return track_out, peak_out
+    
+    @classmethod
+    def from_pretrained(self, weight_path: str, config: TrackMambaConfig):
+        """Load TrackMamba checkpoint"""
+        model = TrackMamba(config)
+        model.load_state_dict(torch.load(weight_path))
+        return model
         
 
 

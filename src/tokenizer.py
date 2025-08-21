@@ -18,7 +18,7 @@ from transformers.tokenization_utils import AddedToken, PreTrainedTokenizer
 
 
 class CharacterTokenizer(PreTrainedTokenizer):
-    def __init__(self, characters: Sequence[str], model_max_length: int, padding_side: str='left', **kwargs):
+    def __init__(self, characters: Sequence[str], model_max_length: int, padding_side: str='right', **kwargs):
         """Character tokenizer for Hugging Face transformers.
         Args:
             characters (Sequence[str]): List of desired characters. Any character which
@@ -37,14 +37,6 @@ class CharacterTokenizer(PreTrainedTokenizer):
         """
         self.characters = characters
         self.model_max_length = model_max_length
-        bos_token = AddedToken("[BOS]", lstrip=False, rstrip=False)
-        eos_token = AddedToken("[SEP]", lstrip=False, rstrip=False)
-        sep_token = AddedToken("[SEP]", lstrip=False, rstrip=False)
-        cls_token = AddedToken("[CLS]", lstrip=False, rstrip=False)
-        pad_token = AddedToken("[PAD]", lstrip=False, rstrip=False)
-        unk_token = AddedToken("[UNK]", lstrip=False, rstrip=False)
-
-        mask_token = AddedToken("[MASK]", lstrip=True, rstrip=False)
 
         self._vocab_str_to_int = {
             "[CLS]": 0,
@@ -59,25 +51,33 @@ class CharacterTokenizer(PreTrainedTokenizer):
         self._vocab_int_to_str = {v: k for k, v in self._vocab_str_to_int.items()}
 
         super().__init__(
-            bos_token=bos_token,
-            eos_token=sep_token,
-            sep_token=sep_token,
-            cls_token=cls_token,
-            pad_token=pad_token,
-            mask_token=mask_token,
-            unk_token=unk_token,
+            bos_token="[BOS]",
+            eos_token="[SEP]",
+            sep_token="[SEP]",
+            cls_token="[CLS]",
+            pad_token="[PAD]",
+            mask_token="[MASK]",
+            unk_token="[UNK]",
             add_prefix_space=False,
             model_max_length=model_max_length,
             padding_side=padding_side,
             **kwargs,
         )
 
+        # force the special token ids to align with your vocab
+        self.pad_token_id = self._vocab_str_to_int["[PAD]"]
+        self.unk_token_id = self._vocab_str_to_int["[UNK]"]
+        self.cls_token_id = self._vocab_str_to_int["[CLS]"]
+        self.sep_token_id = self._vocab_str_to_int["[SEP]"]
+        self.mask_token_id = self._vocab_str_to_int["[MASK]"]
+        self.bos_token_id = self._vocab_str_to_int["[BOS]"]
+
     @property
     def vocab_size(self) -> int:
         return len(self._vocab_str_to_int)
     
     def get_vocab(self) -> Dict[str, int]:
-        return self._vocab_int_to_str.copy()
+        return self._vocab_str_to_int.copy()
 
     def _tokenize(self, text: str) -> List[str]:
         return list(text)
@@ -90,16 +90,6 @@ class CharacterTokenizer(PreTrainedTokenizer):
 
     def convert_tokens_to_string(self, tokens):
         return "".join(tokens)
-
-    # def build_inputs_with_special_tokens(
-    #     self, token_ids_0: List[int], token_ids_1: Optional[List[int]] = None
-    # ) -> List[int]:
-    #     sep = [self.sep_token_id]
-    #     cls = [self.cls_token_id]
-    #     result = cls + token_ids_0 + sep
-    #     if token_ids_1 is not None:
-    #         result += token_ids_1 + sep
-    #     return result
 
     def build_inputs_with_special_tokens(self, token_ids_0, token_ids_1=None):
         if not self.add_special_tokens:
@@ -187,3 +177,8 @@ if __name__ == '__main__':
     tok_out = tokenizer(sequence, add_special_tokens=False)
     print(f"Out: {tok_out['input_ids']}")
     print(f"Output len: {len(tok_out['input_ids'])}")
+
+    # Check for PAD token
+    print("pad_token:", tokenizer.pad_token)         # "[PAD]"
+    print("pad_token_id:", tokenizer.pad_token_id)   # should be 4
+    print("vocab size:", tokenizer.vocab_size)
