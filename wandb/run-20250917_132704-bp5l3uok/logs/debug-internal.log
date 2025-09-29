@@ -1,0 +1,16 @@
+{"time":"2025-09-17T13:27:04.980545605+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_132704-bp5l3uok/logs/debug-core.log"}
+{"time":"2025-09-17T13:27:05.083114891+02:00","level":"INFO","msg":"created new stream","id":"bp5l3uok"}
+{"time":"2025-09-17T13:27:05.083148204+02:00","level":"INFO","msg":"stream: started","id":"bp5l3uok"}
+{"time":"2025-09-17T13:27:05.083235912+02:00","level":"INFO","msg":"handler: started","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T13:27:05.083238967+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T13:27:05.083258105+02:00","level":"INFO","msg":"sender: started","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T13:27:05.419620238+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-17T14:37:33.139292523+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-17T14:37:33.139817059+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-17T14:37:34.101361668+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading wandb-summary.json","runtime_seconds":0.301343726,"progress":"2.1KB/2.1KB"},{"desc":"uploading config.yaml","runtime_seconds":0.160358708,"progress":"1.0KB/1.0KB"}],"total_operations":2}}
+{"time":"2025-09-17T14:37:34.159024786+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-17T14:37:35.409059108+02:00","level":"INFO","msg":"stream: closing","id":"bp5l3uok"}
+{"time":"2025-09-17T14:37:35.409070935+02:00","level":"INFO","msg":"handler: closed","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T14:37:35.409078201+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T14:37:35.409116768+02:00","level":"INFO","msg":"sender: closed","stream_id":"bp5l3uok"}
+{"time":"2025-09-17T14:37:35.409122138+02:00","level":"INFO","msg":"stream: closed","id":"bp5l3uok"}

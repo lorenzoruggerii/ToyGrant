@@ -1,4 +1,7 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import torch
+import argparse
 import tqdm
 import torch.nn.functional as F
 from TrackMamba import TrackMamba
@@ -10,7 +13,6 @@ from torch.utils.data import DataLoader
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import r2_score, mean_absolute_error, root_mean_squared_error, precision_recall_fscore_support, roc_auc_score
 import pandas as pd
-import os
 import wandb
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -190,7 +192,6 @@ class TrackMambaTrainer:
             # Calculate regression metrics
             pearson_corr = pearsonr(preds_r, targets_r)
             spearman_corr = spearmanr(preds_r, targets_r)
-            r2 = r2_score(targets_r, preds_r)
 
             # Convert probabilities -> binary predictions
             binary_preds = (preds_c > 0.5).astype(int)
@@ -201,8 +202,8 @@ class TrackMambaTrainer:
 
             # Log everything on wandb
             wandb.log({
-                "Pearson Corr": pearson_corr,
-                "Spearman Corr": spearman_corr,
+                "Pearson Corr": pearson_corr[0],
+                "Spearman Corr": spearman_corr[0],
                 "Precision": prec,
                 "Recall": rec,
                 "F1 score": f1,
@@ -219,16 +220,48 @@ class TrackMambaTrainer:
 
         # Finish training
         wandb.finish()
+        return regression_loss, classification_loss
 
 if __name__ == '__main__':
+
+    # Include argparse for output file
+    p = argparse.ArgumentParser()
+    p.add_argument("--results_file", type=str, required=False, default=None, help="Path to results file.")
+    p.add_argument("--num_layers", type=int, required=False, default=None, help="Number of Mamba layers.")
+    p.add_argument("--hidden_dim", type=int, required=False, default=None, help="Dimensionality of the residual stream.")
+    p.add_argument("--num_epochs", type=int, required=False, default=None, help="Number of training epochs.")
+
+
+    # Parsing
+    args = p.parse_args()
     
     # Initialize config files
-    trainer_cfg = TrackMambaTrainerCfg()
-    model_cfg = TrackMambaConfig()
+    trainer_cfg = TrackMambaTrainerCfg(
+        num_epochs=args.num_epochs if args.num_epochs else TrackMambaTrainerCfg().num_epochs
+    )
+    model_cfg = TrackMambaConfig(
+        num_layers=args.num_layers if args.num_layers else TrackMambaConfig().num_layers,
+        hidden_dim=args.hidden_dim if args.hidden_dim else TrackMambaConfig().hidden_dim
+    )
 
     # Set seed for reproducibility
     torch.manual_seed(trainer_cfg.seed)
+    torch.cuda.manual_seed(trainer_cfg.seed)
+    torch.cuda.manual_seed_all(trainer_cfg.seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
     # Initialize trainer and train
     trainer = TrackMambaTrainer(trainer_cfg=trainer_cfg, model_cfg=model_cfg)
-    trainer.train()
+    final_regr_loss, final_class_loss = trainer.train()
+
+    # Update results
+    if args.results_file:
+        
+        # Calculate model parameters
+        model_size = sum(p.numel() for p in trainer.model.parameters()) / 1e6
+
+        with open(args.results_file, "a") as outfile:
+            outfile.write(
+                f"{model_size:.2f}\t{model_cfg.num_layers}\t{model_cfg.hidden_dim}\t{trainer_cfg.num_epochs}\t{final_regr_loss:.4f}\t{final_class_loss:.4f}\n"
+            )

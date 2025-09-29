@@ -1,0 +1,19 @@
+{"time":"2025-09-16T19:51:19.312176481+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250916_195119-g8umsy3s/logs/debug-core.log"}
+{"time":"2025-09-16T19:51:19.414964285+02:00","level":"INFO","msg":"created new stream","id":"g8umsy3s"}
+{"time":"2025-09-16T19:51:19.414997562+02:00","level":"INFO","msg":"stream: started","id":"g8umsy3s"}
+{"time":"2025-09-16T19:51:19.415180292+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T19:51:19.415260481+02:00","level":"INFO","msg":"sender: started","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T19:51:19.415277534+02:00","level":"INFO","msg":"handler: started","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T19:51:19.844354308+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-16T20:17:06.080501111+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"context deadline exceeded\",\"path\":[\"project\",\"run\"]}],\"data\":{\"project\":{\"run\":null}}}"}
+{"time":"2025-09-16T20:19:27.08187157+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"context deadline exceeded\",\"path\":[\"project\",\"run\"]}],\"data\":{\"project\":{\"run\":null}}}"}
+{"time":"2025-09-16T20:20:08.362471284+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"context deadline exceeded\",\"path\":[\"project\",\"run\"]}],\"data\":{\"project\":{\"run\":null}}}"}
+{"time":"2025-09-16T20:32:48.94516906+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-16T20:32:48.945663298+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-16T20:32:49.76896138+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-16T20:32:49.945790232+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 3894-3894, summary","runtime_seconds":0.176732265}],"total_operations":1}}
+{"time":"2025-09-16T20:32:50.983683185+02:00","level":"INFO","msg":"stream: closing","id":"g8umsy3s"}
+{"time":"2025-09-16T20:32:50.98369722+02:00","level":"INFO","msg":"handler: closed","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T20:32:50.983704268+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T20:32:50.983764587+02:00","level":"INFO","msg":"sender: closed","stream_id":"g8umsy3s"}
+{"time":"2025-09-16T20:32:50.983812801+02:00","level":"INFO","msg":"stream: closed","id":"g8umsy3s"}

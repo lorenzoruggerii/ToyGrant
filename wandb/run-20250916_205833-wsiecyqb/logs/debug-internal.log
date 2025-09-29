@@ -1,0 +1,17 @@
+{"time":"2025-09-16T20:58:33.493625399+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250916_205833-wsiecyqb/logs/debug-core.log"}
+{"time":"2025-09-16T20:58:33.596929758+02:00","level":"INFO","msg":"created new stream","id":"wsiecyqb"}
+{"time":"2025-09-16T20:58:33.596982243+02:00","level":"INFO","msg":"stream: started","id":"wsiecyqb"}
+{"time":"2025-09-16T20:58:33.597065414+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T20:58:33.59711649+02:00","level":"INFO","msg":"sender: started","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T20:58:33.597196099+02:00","level":"INFO","msg":"handler: started","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T20:58:33.929072175+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-16T21:02:49.145123693+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-09-16T21:23:03.788534064+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-16T21:23:03.78887338+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-16T21:23:04.638550213+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-16T21:23:04.789121647+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 7789-7789, summary, console lines 8-8","runtime_seconds":0.150477473}],"total_operations":1}}
+{"time":"2025-09-16T21:23:05.890677299+02:00","level":"INFO","msg":"stream: closing","id":"wsiecyqb"}
+{"time":"2025-09-16T21:23:05.89068766+02:00","level":"INFO","msg":"handler: closed","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T21:23:05.890693494+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T21:23:05.890728628+02:00","level":"INFO","msg":"sender: closed","stream_id":"wsiecyqb"}
+{"time":"2025-09-16T21:23:05.890732483+02:00","level":"INFO","msg":"stream: closed","id":"wsiecyqb"}

@@ -1,1 +1,9 @@
 /__pycache__/*
+.env
+src/prova.ipynb
+results/
+datasets/
+models/
+images/
+files/
+src/scaling_context.py

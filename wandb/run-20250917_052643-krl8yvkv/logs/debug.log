@@ -1,0 +1,29 @@
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_setup.py:_flush():68] Current SDK version is 0.19.6
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_setup.py:_flush():68] Configure stats pid to 2726672
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_setup.py:_flush():68] Loading settings from /home/lruggeri/.config/wandb/settings
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_setup.py:_flush():68] Loading settings from /storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/settings
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_init.py:setup_run_log_directory():637] Logging user logs to /storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_052643-krl8yvkv/logs/debug.log
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_init.py:setup_run_log_directory():638] Logging internal logs to /storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_052643-krl8yvkv/logs/debug-internal.log
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_init.py:init():756] calling init triggers
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_init.py:init():761] wandb.init called with sweep_config: {}
+config: {'learning_rate': 3e-05, 'epochs': 15, 'batch_size': 32, 'regression_loss_function': 'MSELoss', 'classification_loss_function': 'BCEWithLogitsLoss', 'num_layers': 4, 'embed_size': 256, '_wandb': {}}
+2025-09-17 05:26:43,984 INFO    MainThread:2726672 [wandb_init.py:init():789] starting backend
+2025-09-17 05:26:44,187 INFO    MainThread:2726672 [wandb_init.py:init():793] sending inform_init request
+2025-09-17 05:26:44,190 INFO    MainThread:2726672 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2025-09-17 05:26:44,190 INFO    MainThread:2726672 [wandb_init.py:init():808] backend started and connected
+2025-09-17 05:26:44,190 INFO    MainThread:2726672 [wandb_init.py:init():901] updated telemetry
+2025-09-17 05:26:44,192 INFO    MainThread:2726672 [wandb_init.py:init():936] communicating run to backend with 90.0 second timeout
+2025-09-17 05:26:44,555 INFO    MainThread:2726672 [wandb_init.py:init():994] starting run threads in backend
+2025-09-17 05:26:44,648 INFO    MainThread:2726672 [wandb_run.py:_console_start():2385] atexit reg
+2025-09-17 05:26:44,648 INFO    MainThread:2726672 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2025-09-17 05:26:44,648 INFO    MainThread:2726672 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2025-09-17 05:26:44,648 INFO    MainThread:2726672 [wandb_run.py:_redirect():2325] Redirects installed.
+2025-09-17 05:26:44,649 INFO    MainThread:2726672 [wandb_init.py:init():1036] run started, returning control to user process
+2025-09-17 06:14:01,380 INFO    MainThread:2726672 [wandb_run.py:_finish():2110] finishing run lruggeri-university-of-verona/ToyGrant/krl8yvkv
+2025-09-17 06:14:01,380 INFO    MainThread:2726672 [wandb_run.py:_atexit_cleanup():2350] got exitcode: 0
+2025-09-17 06:14:01,381 INFO    MainThread:2726672 [wandb_run.py:_restore():2332] restore
+2025-09-17 06:14:01,381 INFO    MainThread:2726672 [wandb_run.py:_restore():2338] restore done
+2025-09-17 06:14:03,388 INFO    MainThread:2726672 [wandb_run.py:_footer_history_summary_info():3963] rendering history
+2025-09-17 06:14:03,388 INFO    MainThread:2726672 [wandb_run.py:_footer_history_summary_info():3995] rendering summary
+2025-09-17 06:14:03,388 INFO    MainThread:2726672 [wandb_run.py:_footer_sync_info():3924] logging synced files

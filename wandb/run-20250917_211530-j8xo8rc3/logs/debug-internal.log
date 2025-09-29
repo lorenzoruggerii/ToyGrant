@@ -1,0 +1,21 @@
+{"time":"2025-09-17T21:15:30.403951892+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_211530-j8xo8rc3/logs/debug-core.log"}
+{"time":"2025-09-17T21:15:30.506710867+02:00","level":"INFO","msg":"created new stream","id":"j8xo8rc3"}
+{"time":"2025-09-17T21:15:30.506734162+02:00","level":"INFO","msg":"stream: started","id":"j8xo8rc3"}
+{"time":"2025-09-17T21:15:30.506800842+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"j8xo8rc3"}
+{"time":"2025-09-17T21:15:30.506842039+02:00","level":"INFO","msg":"sender: started","stream_id":"j8xo8rc3"}
+{"time":"2025-09-17T21:15:30.506869779+02:00","level":"INFO","msg":"handler: started","stream_id":"j8xo8rc3"}
+{"time":"2025-09-17T21:15:30.838397923+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-17T22:03:01.427563235+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-09-17T22:19:46.798426142+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"An internal error occurred. Please contact support.\",\"path\":[\"project\"]}],\"data\":{\"project\":null}}"}
+{"time":"2025-09-17T22:19:58.509757095+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/lruggeri-university-of-verona/ToyGrant/j8xo8rc3/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-09-17T22:20:18.507179092+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"An internal error occurred. Please contact support.\",\"path\":[\"project\"]}],\"data\":{\"project\":null}}"}
+{"time":"2025-09-17T22:20:20.736341067+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"An internal error occurred. Please contact support.\",\"path\":[\"project\",\"run\"]}],\"data\":{\"project\":{\"run\":null}}}"}
+{"time":"2025-09-18T00:03:14.75928976+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-18T00:03:14.759809966+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-18T00:03:15.522106216+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-18T00:03:15.721217947+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 15579-15579, summary","runtime_seconds":0.19905895}],"total_operations":1}}
+{"time":"2025-09-18T00:03:16.797710585+02:00","level":"INFO","msg":"stream: closing","id":"j8xo8rc3"}
+{"time":"2025-09-18T00:03:16.797719889+02:00","level":"INFO","msg":"handler: closed","stream_id":"j8xo8rc3"}
+{"time":"2025-09-18T00:03:16.797728313+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"j8xo8rc3"}
+{"time":"2025-09-18T00:03:16.797764253+02:00","level":"INFO","msg":"sender: closed","stream_id":"j8xo8rc3"}
+{"time":"2025-09-18T00:03:16.797768691+02:00","level":"INFO","msg":"stream: closed","id":"j8xo8rc3"}

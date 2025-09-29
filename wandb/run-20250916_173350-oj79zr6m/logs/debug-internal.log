@@ -1,0 +1,16 @@
+{"time":"2025-09-16T17:33:50.820209865+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250916_173350-oj79zr6m/logs/debug-core.log"}
+{"time":"2025-09-16T17:33:50.922869882+02:00","level":"INFO","msg":"created new stream","id":"oj79zr6m"}
+{"time":"2025-09-16T17:33:50.922890337+02:00","level":"INFO","msg":"stream: started","id":"oj79zr6m"}
+{"time":"2025-09-16T17:33:50.922939278+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:33:50.923048577+02:00","level":"INFO","msg":"handler: started","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:33:50.923056662+02:00","level":"INFO","msg":"sender: started","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:33:51.222267213+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-16T17:47:00.278074099+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-16T17:47:00.278466913+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-16T17:47:01.127333623+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-16T17:47:01.278468113+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 3894-3894, summary, console lines 5-5","runtime_seconds":0.151065383}],"total_operations":1}}
+{"time":"2025-09-16T17:47:02.373266362+02:00","level":"INFO","msg":"stream: closing","id":"oj79zr6m"}
+{"time":"2025-09-16T17:47:02.373275718+02:00","level":"INFO","msg":"handler: closed","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:47:02.37328405+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:47:02.373301856+02:00","level":"INFO","msg":"sender: closed","stream_id":"oj79zr6m"}
+{"time":"2025-09-16T17:47:02.373312586+02:00","level":"INFO","msg":"stream: closed","id":"oj79zr6m"}

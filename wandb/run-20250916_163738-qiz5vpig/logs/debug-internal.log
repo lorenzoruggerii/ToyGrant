@@ -1,0 +1,16 @@
+{"time":"2025-09-16T16:37:38.984807927+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250916_163738-qiz5vpig/logs/debug-core.log"}
+{"time":"2025-09-16T16:37:39.088507071+02:00","level":"INFO","msg":"created new stream","id":"qiz5vpig"}
+{"time":"2025-09-16T16:37:39.088528353+02:00","level":"INFO","msg":"stream: started","id":"qiz5vpig"}
+{"time":"2025-09-16T16:37:39.088600926+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:37:39.08867645+02:00","level":"INFO","msg":"sender: started","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:37:39.088722338+02:00","level":"INFO","msg":"handler: started","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:37:39.374940217+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-16T16:52:00.743350369+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-16T16:52:00.743842624+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-16T16:52:01.71236827+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading config.yaml","runtime_seconds":0.106175271,"progress":"1.0KB/1.0KB"}],"total_operations":1}}
+{"time":"2025-09-16T16:52:01.839937468+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-16T16:52:03.095408543+02:00","level":"INFO","msg":"stream: closing","id":"qiz5vpig"}
+{"time":"2025-09-16T16:52:03.095418932+02:00","level":"INFO","msg":"handler: closed","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:52:03.095423617+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:52:03.095456493+02:00","level":"INFO","msg":"sender: closed","stream_id":"qiz5vpig"}
+{"time":"2025-09-16T16:52:03.095458448+02:00","level":"INFO","msg":"stream: closed","id":"qiz5vpig"}

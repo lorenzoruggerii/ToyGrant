@@ -1,0 +1,16 @@
+{"time":"2025-09-17T02:40:59.055783196+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_024058-liyeywwo/logs/debug-core.log"}
+{"time":"2025-09-17T02:40:59.158476204+02:00","level":"INFO","msg":"created new stream","id":"liyeywwo"}
+{"time":"2025-09-17T02:40:59.158496124+02:00","level":"INFO","msg":"stream: started","id":"liyeywwo"}
+{"time":"2025-09-17T02:40:59.158570049+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"liyeywwo"}
+{"time":"2025-09-17T02:40:59.15863923+02:00","level":"INFO","msg":"handler: started","stream_id":"liyeywwo"}
+{"time":"2025-09-17T02:40:59.158671509+02:00","level":"INFO","msg":"sender: started","stream_id":"liyeywwo"}
+{"time":"2025-09-17T02:40:59.402615802+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-17T03:13:48.469854662+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-17T03:13:48.47041993+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-17T03:13:49.470736712+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading config.yaml","runtime_seconds":0.469347848,"progress":"1.0KB/1.0KB"}],"total_operations":1}}
+{"time":"2025-09-17T03:13:49.569464682+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-17T03:13:50.756643172+02:00","level":"INFO","msg":"stream: closing","id":"liyeywwo"}
+{"time":"2025-09-17T03:13:50.756654709+02:00","level":"INFO","msg":"handler: closed","stream_id":"liyeywwo"}
+{"time":"2025-09-17T03:13:50.75666126+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"liyeywwo"}
+{"time":"2025-09-17T03:13:50.756710861+02:00","level":"INFO","msg":"sender: closed","stream_id":"liyeywwo"}
+{"time":"2025-09-17T03:13:50.756713191+02:00","level":"INFO","msg":"stream: closed","id":"liyeywwo"}

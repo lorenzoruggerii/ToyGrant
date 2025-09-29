@@ -1,3 +1,5 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import torch
 import argparse
 import matplotlib.pyplot as plt
@@ -10,8 +12,10 @@ from typing import List
 from tokenizer import CharacterTokenizer
 from torch.nn.functional import sigmoid
 import numpy as np
-import os
 from tqdm import tqdm
+from dotenv import load_dotenv
+from alphagenome.models import dna_client
+from alphagenome.data import genome
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -21,7 +25,7 @@ def extract_sig_and_seq(fasta_path: str, bigwig_path: str, input_coords: str, ma
     # Open all the inputs
     ref_genome = Fasta(fasta_path)
     bw = pyBigWig.open(bigwig_path)
-    coords = pd.read_csv(input_coords, sep=r"\s+", header=None) # chr | start | stop
+    coords = pd.read_csv(input_coords, sep="\t", header=None) # chr | start | stop
 
     # Assert everything is inside context length
     assert ((coords[2] - coords[1]) <= max_length).all(), f"Every sequence must be < {max_length} nucleotides."
@@ -40,11 +44,14 @@ def extract_sig_and_seq(fasta_path: str, bigwig_path: str, input_coords: str, ma
 
     return seqs, sigs
     
-def get_predictions_from_model(sequences: List[str],  model_path: str, max_length: int):
+def get_predictions_from_model(sequences: List[str],  model_path: str, max_length: int, num_layers: int, hidden_dim: int):
     """Run the model on extracted sequences"""
 
+    print("Making predictions...")
+
     # Initilize model
-    cfg = TrackMambaConfig()
+    cfg = TrackMambaConfig(num_layers=num_layers, hidden_dim=hidden_dim)
+
     m = TrackMamba.from_pretrained(model_path, cfg).to(device)
 
     # Initialize tokenizer
@@ -62,13 +69,58 @@ def get_predictions_from_model(sequences: List[str],  model_path: str, max_lengt
     # Convert class preds into binary
     pred_labels = (sigmoid(class_preds) > 0.5).int()
 
+    print("Predictions done!")
+
     return pred_regrs.cpu().detach(), pred_labels.cpu().detach()
 
-def save_plot(regr_preds: torch.Tensor, class_preds: torch.Tensor, signals: List[List[float]], save_path: str, coords: str, ncols=5):
+def get_predictions_ag(coords: str, GO_term: str, max_length: int):
+    "Run alphagenome on coords and get DNase track"
+
+    # Load API KEY
+    load_dotenv()
+    API_KEY = os.getenv("API_KEY")
+
+    # Load AlphaGenome model
+    dna_model = dna_client.create(API_KEY)
+
+    # Load coords information
+    coords = pd.read_csv(coords, sep="\t", header=None) # chr | start | stop
+
+    # Initialize output matrix
+    out_AG = np.zeros((len(coords), max_length))
+
+    # Calculate predictions
+    for i in tqdm(range(len(coords)), total=len(coords), desc="Making AG predictions..."):
+        
+        # Define the interval
+        interval = genome.Interval(chromosome=coords[0][i], start = coords[1][i], end = coords[2][i])
+
+        # Resize to desired input len
+        interval = interval.resize(dna_client.SEQUENCE_LENGTH_16KB)
+
+        # Make prediction
+        outputs = dna_model.predict_interval(
+            interval=interval,
+            requested_outputs=[dna_client.OutputType.DNASE],
+            ontology_terms=[GO_term] # term of the cell line
+        )
+
+        outputs = outputs.dnase.values
+
+        # Extract input range and add to out vector
+        out = outputs[coords[1][i] - interval.start:coords[2][i] - interval.start,:]
+
+        # Pad to desired length
+        out = np.pad(out.squeeze(), (0, max_length - len(out)), mode="constant")
+        out_AG[i, :] = out
+
+    return out_AG
+
+def save_plot(regr_preds: torch.Tensor, class_preds: torch.Tensor, signals: List[List[float]], ag_preds: np.array, save_path: str, coords: str, model_name: str, ncols=5):
     """Create plots and save them."""
 
     # Load coords information
-    coords = pd.read_csv(coords, sep=r"\s+", header=None) # chr | start | stop
+    coords = pd.read_csv(coords, sep="\t", header=None) # chr | start | stop
     
     # Calculate lengths
     seq_lenghts = (coords[2] - coords[1]).tolist()
@@ -79,17 +131,19 @@ def save_plot(regr_preds: torch.Tensor, class_preds: torch.Tensor, signals: List
 
     fig, axes = plt.subplots(nrows, ncols, figsize=(4*ncols, 3*nrows), squeeze=False)
 
-    for i in range(nseqs):
+    for i in tqdm(range(nseqs), total=nseqs, desc='Plotting tracks...'):
         ax = axes[i // ncols, i % ncols]
 
         x = np.arange(len(signals[i]))
         y_true = signals[i]
         y_pred = regr_preds[i][:seq_lenghts[i]]
         cls_pred = class_preds[i][:seq_lenghts[i]]
+        ag_pred = ag_preds[i][:seq_lenghts[i]]
 
         # plot regression
         ax.plot(x, y_true, label="True", color="blue", linewidth=2)
         ax.plot(x, y_pred, label="Pred", color="red", linestyle="--", linewidth=2)
+        ax.plot(x, ag_pred.squeeze(), label="AG", color="green", linestyle="--", linewidth=2, alpha=0.3)
 
         # highlight classification=1
         for j in np.where(cls_pred == 1)[0]:
@@ -105,19 +159,26 @@ def save_plot(regr_preds: torch.Tensor, class_preds: torch.Tensor, signals: List
     for k in range(nseqs, nrows * ncols):
         fig.delaxes(axes[k // ncols, k % ncols])
 
+    # Add title for model
+    plot_title = os.path.splitext(os.path.basename(model_name))[0]
+    # plt.suptitle(plot_title)
+
     plt.tight_layout()
-    plt.savefig(os.path.join(save_path, 'plot_coords.png'), dpi=300, format='png')
+    plt.savefig(os.path.join(save_path, f'{plot_title}.png'), dpi=300, format='png')
 
 
 
 def main():
-    p = argparse.ArgumentParser()
+    p = argparse.ArgumentParser(description="Plot predicted TrackMamba tracks.")
     p.add_argument("--model_path", type=str, required=True, help="Path to the trained TrackMamba model.")
     p.add_argument("--input_coords", type=str, required=True, help="Path to the input coordinates file (tsv). The file must be chr | start | stop.")
     p.add_argument("--bigwig", type=str, required=True, help="Path to bigWig file.")
     p.add_argument("--fasta", type=str, required=True, help="Path to reference genome.")
     p.add_argument("--max_length", type=int, required=True, help="TrackMamba context length.")
     p.add_argument("--save_path", type=str, required=False, help="Where to put images.", default=".")
+    p.add_argument("--num_layers", type=int, required=True, help="Number of TrackMamba layers.")
+    p.add_argument("--hidden_dim", type=int, required=True, help="Dimensionality of TrackMamba residual stream.")
+    p.add_argument("--GO_term", type=str, required=True, help="GO Term associated with the input experiment.")
 
     args = p.parse_args()
 
@@ -125,10 +186,13 @@ def main():
     sequences, signals = extract_sig_and_seq(args.fasta, args.bigwig, args.input_coords, args.max_length)
     
     # Run the model and obtain predictions
-    regr_preds, class_preds = get_predictions_from_model(sequences, args.model_path, args.max_length)
+    regr_preds, class_preds = get_predictions_from_model(sequences, args.model_path, args.max_length, args.num_layers, args.hidden_dim)
+
+    # Get predictions from alphagenome
+    ag_preds = get_predictions_ag(args.input_coords, args.GO_term, args.max_length)
 
     # Plot everything
-    save_plot(regr_preds, class_preds, signals, args.save_path, args.input_coords)
+    save_plot(regr_preds, class_preds, signals, ag_preds, args.save_path, args.input_coords, args.model_path)
 
 if __name__ == '__main__':
     main()

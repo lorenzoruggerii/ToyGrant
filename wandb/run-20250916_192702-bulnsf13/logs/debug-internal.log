@@ -1,0 +1,18 @@
+{"time":"2025-09-16T19:27:02.266111668+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250916_192702-bulnsf13/logs/debug-core.log"}
+{"time":"2025-09-16T19:27:02.369703334+02:00","level":"INFO","msg":"created new stream","id":"bulnsf13"}
+{"time":"2025-09-16T19:27:02.369731011+02:00","level":"INFO","msg":"stream: started","id":"bulnsf13"}
+{"time":"2025-09-16T19:27:02.369843806+02:00","level":"INFO","msg":"sender: started","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:27:02.369839482+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:27:02.369906388+02:00","level":"INFO","msg":"handler: started","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:27:02.634740167+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-16T19:43:26.79302489+02:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/graphql","body":"{\"errors\":[{\"message\":\"context deadline exceeded\",\"path\":[\"project\",\"run\"]}],\"data\":{\"project\":{\"run\":null}}}"}
+{"time":"2025-09-16T19:44:33.514754435+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-09-16T19:49:56.332439281+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-16T19:49:56.332912941+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-16T19:49:57.150814728+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-16T19:49:57.293540936+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 3894-3894, summary","runtime_seconds":0.142614071}],"total_operations":1}}
+{"time":"2025-09-16T19:49:58.395293018+02:00","level":"INFO","msg":"stream: closing","id":"bulnsf13"}
+{"time":"2025-09-16T19:49:58.395304619+02:00","level":"INFO","msg":"handler: closed","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:49:58.395309654+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:49:58.395314845+02:00","level":"INFO","msg":"sender: closed","stream_id":"bulnsf13"}
+{"time":"2025-09-16T19:49:58.395355403+02:00","level":"INFO","msg":"stream: closed","id":"bulnsf13"}

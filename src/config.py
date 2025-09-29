@@ -26,7 +26,7 @@ class DatasetCfg:
     real_context: int = 1_000
     num_peaks_per_chrom: int = -1
     negative_fold: int = 1 # balanced dataset
-    fasta_path: str = "../Mamba_TFBS/genome/hg38.fa"
+    fasta_path: str = "../../Mamba_TFBS/genome/hg38.fa"
     bigwig_path: str = "files/bigWig/ENCFF972GVB.bigWig"
     bigbed_path: str = "files/bed/ENCFF070TML.bigBed"
     save_path: str = "datasets/tracks_1_22_4K.json"
@@ -54,7 +54,7 @@ class TrackMambaConfig:
     )
     num_layers: int = 4
     vocab_size: int = tokenizer.vocab_size
-    hidden_dim: int = 256
+    hidden_dim: int = 512
 
 @dataclass
 class TrackMambaTrainerCfg:
@@ -79,7 +79,7 @@ class TrackMambaTrainerCfg:
         - seed: for reproducibility
     """
     lr: float = 3e-5
-    batch_size: int = 4
+    batch_size: int = 32
     regression_loss: Callable = MSELoss()
     classification_loss: Callable = BCEWithLogitsLoss()
     optimizer: torch.optim.Optimizer = torch.optim.AdamW
@@ -91,5 +91,5 @@ class TrackMambaTrainerCfg:
     test_chroms: List[str] = field(default_factory=lambda: ["chr22"])
     comb_factor: float = 1.0
     wandb_name: str = f"TrackMambaNorm_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda"
-    save_path: str = f"models/ToyGrant/TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda.pt"
+    save_path: str = f"models/TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda.pt"
     seed: int = 42

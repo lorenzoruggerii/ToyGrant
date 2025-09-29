@@ -1,0 +1,16 @@
+{"time":"2025-09-17T06:15:24.172460129+02:00","level":"INFO","msg":"stream: starting","core version":"0.19.6","symlink path":"/storage_1/lruggeri/projects/NT_SAE/ToyGrant/wandb/run-20250917_061523-shiaw2ka/logs/debug-core.log"}
+{"time":"2025-09-17T06:15:24.275208462+02:00","level":"INFO","msg":"created new stream","id":"shiaw2ka"}
+{"time":"2025-09-17T06:15:24.275227851+02:00","level":"INFO","msg":"stream: started","id":"shiaw2ka"}
+{"time":"2025-09-17T06:15:24.275395095+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T06:15:24.276119016+02:00","level":"INFO","msg":"sender: started","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T06:15:24.276060925+02:00","level":"INFO","msg":"handler: started","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T06:15:24.590209803+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-17T07:31:23.436898432+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-17T07:31:23.437462195+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-17T07:31:24.190640379+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-17T07:31:24.437539313+02:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 11684-11684, summary","runtime_seconds":0.246793941}],"total_operations":1}}
+{"time":"2025-09-17T07:31:25.448806349+02:00","level":"INFO","msg":"stream: closing","id":"shiaw2ka"}
+{"time":"2025-09-17T07:31:25.448819773+02:00","level":"INFO","msg":"handler: closed","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T07:31:25.448825168+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T07:31:25.44888534+02:00","level":"INFO","msg":"sender: closed","stream_id":"shiaw2ka"}
+{"time":"2025-09-17T07:31:25.448897705+02:00","level":"INFO","msg":"stream: closed","id":"shiaw2ka"}
