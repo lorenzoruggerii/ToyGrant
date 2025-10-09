@@ -44,13 +44,18 @@ def extract_sig_and_seq(fasta_path: str, bigwig_path: str, input_coords: str, ma
 
     return seqs, sigs
     
-def get_predictions_from_model(sequences: List[str],  model_path: str, max_length: int, num_layers: int, hidden_dim: int):
+def get_predictions_from_model(sequences: List[str],  model_path: str, max_length: int, num_layers: int, hidden_dim: int, use_MLP: bool, use_pos_embs: bool):
     """Run the model on extracted sequences"""
 
     print("Making predictions...")
 
     # Initilize model
-    cfg = TrackMambaConfig(num_layers=num_layers, hidden_dim=hidden_dim)
+    cfg = TrackMambaConfig(
+        num_layers=num_layers,
+        hidden_dim=hidden_dim,
+        use_MLP=use_MLP,
+        use_pos_embs=use_pos_embs
+    )
 
     m = TrackMamba.from_pretrained(model_path, cfg).to(device)
 
@@ -177,6 +182,8 @@ def main():
     p.add_argument("--max_length", type=int, required=True, help="TrackMamba context length.")
     p.add_argument("--save_path", type=str, required=False, help="Where to put images.", default=".")
     p.add_argument("--num_layers", type=int, required=True, help="Number of TrackMamba layers.")
+    p.add_argument("--use_MLP", action='store_true', default=False)
+    p.add_argument("--use_pos_embs", action='store_true', default=False)
     p.add_argument("--hidden_dim", type=int, required=True, help="Dimensionality of TrackMamba residual stream.")
     p.add_argument("--GO_term", type=str, required=True, help="GO Term associated with the input experiment.")
 
@@ -186,7 +193,7 @@ def main():
     sequences, signals = extract_sig_and_seq(args.fasta, args.bigwig, args.input_coords, args.max_length)
     
     # Run the model and obtain predictions
-    regr_preds, class_preds = get_predictions_from_model(sequences, args.model_path, args.max_length, args.num_layers, args.hidden_dim)
+    regr_preds, class_preds = get_predictions_from_model(sequences, args.model_path, args.max_length, args.num_layers, args.hidden_dim, args.use_MLP, args.use_pos_embs)
 
     # Get predictions from alphagenome
     ag_preds = get_predictions_ag(args.input_coords, args.GO_term, args.max_length)

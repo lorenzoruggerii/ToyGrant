@@ -214,7 +214,9 @@ class TrackMambaTrainer:
             avg_val_loss = val_loss_total / len(self.test_dataloader())
             if avg_val_loss < best_val_loss:
                 best_val_loss = avg_val_loss
-                save_path = f"{os.path.splitext(self.cfg.save_path)[0]}_{self.model_cfg.num_layers}L_{self.model_cfg.hidden_dim}D.pt"
+                if_mlp = "_mlp" if self.model.cfg.use_MLP else ""
+                if_pos = "_pos_embs" if self.model.cfg.use_pos_embs else ""
+                save_path = f"{os.path.splitext(self.cfg.save_path)[0]}_{self.model_cfg.num_layers}L_{self.model_cfg.hidden_dim}D{if_mlp}{if_pos}.pt"
                 torch.save(self.model.state_dict(), save_path)
                 print(f"Model saved in {save_path} with avg_val_loss={avg_val_loss}")
 
@@ -230,6 +232,8 @@ if __name__ == '__main__':
     p.add_argument("--num_layers", type=int, required=False, default=None, help="Number of Mamba layers.")
     p.add_argument("--hidden_dim", type=int, required=False, default=None, help="Dimensionality of the residual stream.")
     p.add_argument("--num_epochs", type=int, required=False, default=None, help="Number of training epochs.")
+    p.add_argument("--use_MLP", action='store_true', default=False)
+    p.add_argument("--use_pos_embs", action='store_true', default=False)
 
 
     # Parsing
@@ -241,7 +245,9 @@ if __name__ == '__main__':
     )
     model_cfg = TrackMambaConfig(
         num_layers=args.num_layers if args.num_layers else TrackMambaConfig().num_layers,
-        hidden_dim=args.hidden_dim if args.hidden_dim else TrackMambaConfig().hidden_dim
+        hidden_dim=args.hidden_dim if args.hidden_dim else TrackMambaConfig().hidden_dim,
+        use_MLP=args.use_MLP,
+        use_pos_embs=args.use_pos_embs
     )
 
     # Set seed for reproducibility

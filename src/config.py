@@ -45,6 +45,7 @@ class TrackMambaConfig:
         - vocab_size: tokenizer vocabulary size
         - hidden_dim: residual stream dimensionality
         - num_layers: model's input layers
+        - use_MLP: whether to use MLP block after Mamba
         
     """
     context_len: int = 4_000
@@ -55,6 +56,8 @@ class TrackMambaConfig:
     num_layers: int = 4
     vocab_size: int = tokenizer.vocab_size
     hidden_dim: int = 512
+    use_MLP: bool = True
+    use_pos_embs: bool = True
 
 @dataclass
 class TrackMambaTrainerCfg:
@@ -91,5 +94,5 @@ class TrackMambaTrainerCfg:
     test_chroms: List[str] = field(default_factory=lambda: ["chr22"])
     comb_factor: float = 1.0
     wandb_name: str = f"TrackMambaNorm_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda"
-    save_path: str = f"models/TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda.pt"
+    save_path: str = f"models/inference/TrackMamba_{batch_size}BS_{num_epochs}Epochs_{comb_factor}lambda.pt"
     seed: int = 42
