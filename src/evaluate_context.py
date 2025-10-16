@@ -53,6 +53,10 @@ def save_plot(out: torch.Tensor, true: torch.Tensor, short_context_pred: torch.T
     plt.savefig(os.path.join(image_path, f"{out_name}.png"), dpi=300)
     plt.show()
 
+    plt.cla()
+    plt.clf()
+    plt.close()
+
 
 def format_df(df_path: str) -> Tuple[Dataset, List[int]]:
 
@@ -132,6 +136,7 @@ def main():
     p.add_argument("--batch_size", type=int, required=False, default=32, help="Batch size for inference")
     p.add_argument("--save_path", type=str, required=True, help="Where to save MSE values")
     p.add_argument("--image_path", type=str, required=True, help="Where to save the images")
+    p.add_argument("--every", type=int, required=True, help="How many batches to save an image")
 
     args = p.parse_args()
 
@@ -171,8 +176,8 @@ def main():
         dataloader = DataLoader(ds, batch_size=args.batch_size, shuffle=False, collate_fn=lambda batch: collate_fn(batch, tokenizer))
         offset = 0 # consider batches < args.batch_size
 
-        for batch in tqdm(
-            dataloader,
+        for j, batch in tqdm(
+            enumerate(dataloader),
             total=len(dataloader),
             colour="GREEN",
             desc=f"Seq len: {seq_len}"
@@ -205,25 +210,27 @@ def main():
             mse_results[offset:offset+batch_size, i] = mse_per_seq
             offset += batch_size
 
+            # Save images only for the last context extension
+            if seq_len == seq_lengths[-1] and j % args.every == 0:
             # Get minimum MSE in batch
-            min_MSE_idx = mse_per_seq.argmin().item()
+                min_MSE_idx = mse_per_seq.argmin().item()
 
-            # Rerun the model on short context prediction
-            short_context_prediction = model.scale_context(tokens[min_MSE_idx, -model.cfg.context_len:].unsqueeze(0))
+                # Rerun the model on short context prediction
+                short_context_prediction = model.scale_context(tokens[min_MSE_idx, -model.cfg.context_len:].unsqueeze(0))
 
-            # Get all the relevant infos
-            start, end = batch['starts'][min_MSE_idx], batch['ends'][min_MSE_idx]
-            chrom = batch['chroms'][min_MSE_idx]
-            out_name = f"{chrom}:{start}-{end}"
+                # Get all the relevant infos
+                start, end = batch['starts'][min_MSE_idx], batch['ends'][min_MSE_idx]
+                chrom = batch['chroms'][min_MSE_idx]
+                out_name = f"{chrom}:{start}-{end}"
 
-            # Save plot
-            save_plot(
-                out[min_MSE_idx, :].detach().cpu(),
-                true[min_MSE_idx, :].detach().cpu(),
-                short_context_prediction.detach().cpu(),
-                out_name,
-                args.image_path
-            )
+                # Save plot
+                save_plot(
+                    out[min_MSE_idx, :].detach().cpu(),
+                    true[min_MSE_idx, :].detach().cpu(),
+                    short_context_prediction.detach().cpu(),
+                    out_name,
+                    args.image_path
+                )
 
     # Save dataframe and print summary results
     df_mse = pd.DataFrame(
