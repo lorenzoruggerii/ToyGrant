@@ -39,24 +39,21 @@ class CharacterTokenizer(PreTrainedTokenizer):
         self.model_max_length = model_max_length
 
         self._vocab_str_to_int = {
-            "[CLS]": 0,
-            "[SEP]": 1,
-            "[BOS]": 2,
-            "[MASK]": 3,
-            "[PAD]": 4,
-            "[RESERVED]": 5,
-            "[UNK]": 6,
-            **{ch: i + 7 for i, ch in enumerate(characters)},
+            **{ch: i for i, ch in enumerate(characters)},
+            "[PAD]": len(characters),
+            "[UNK]": len(characters) + 1,
+            "[SEP]": len(characters) + 2,
+            "[CLS]": len(characters) + 3
         }
         self._vocab_int_to_str = {v: k for k, v in self._vocab_str_to_int.items()}
 
         super().__init__(
-            bos_token="[BOS]",
+            # bos_token="[BOS]",
             eos_token="[SEP]",
-            sep_token="[SEP]",
+            # sep_token="[SEP]",
             cls_token="[CLS]",
             pad_token="[PAD]",
-            mask_token="[MASK]",
+            # mask_token="[MASK]",
             unk_token="[UNK]",
             add_prefix_space=False,
             model_max_length=model_max_length,
@@ -69,8 +66,8 @@ class CharacterTokenizer(PreTrainedTokenizer):
         self.unk_token_id = self._vocab_str_to_int["[UNK]"]
         self.cls_token_id = self._vocab_str_to_int["[CLS]"]
         self.sep_token_id = self._vocab_str_to_int["[SEP]"]
-        self.mask_token_id = self._vocab_str_to_int["[MASK]"]
-        self.bos_token_id = self._vocab_str_to_int["[BOS]"]
+        # self.mask_token_id = self._vocab_str_to_int["[MASK]"]
+        # self.bos_token_id = self._vocab_str_to_int["[BOS]"]
 
     @property
     def vocab_size(self) -> int:
@@ -161,21 +158,23 @@ class CharacterTokenizer(PreTrainedTokenizer):
 if __name__ == '__main__':
     
     # Load the dataset
-    trainer_cfg = TrackMambaTrainerCfg()
-    df = pd.read_json(os.path.join(trainer_cfg.data_path, trainer_cfg.data_file))
-    data = Dataset.from_pandas(df)
+    # trainer_cfg = TrackMambaTrainerCfg()
+    # df = pd.read_json(os.path.join(trainer_cfg.data_path, trainer_cfg.data_file))
+    # data = Dataset.from_pandas(df)
 
     # Take first sequences
-    sequence = data['sequence'][0]
-    print(f"Sequence: {sequence}")
+    # sequence = data['sequence'][0]
+    sequences = ["AAATTTCCGGGNNNN", "AATTTC"]
+    print(f"Sequence: {sequences}")
 
     # Test the tokenizer
     tokenizer = CharacterTokenizer(
         ['A', 'C', 'G', 'T', 'N'],
         model_max_length=4_000
     )
-    tok_out = tokenizer(sequence, add_special_tokens=False)
+    tok_out = tokenizer(sequences, add_special_tokens=False, padding=True)
     print(f"Out: {tok_out['input_ids']}")
+    print(f"Attn_mask: {tok_out['attention_mask']}")
     print(f"Output len: {len(tok_out['input_ids'])}")
 
     # Check for PAD token

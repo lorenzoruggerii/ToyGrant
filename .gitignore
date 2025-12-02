@@ -8,3 +8,4 @@ models/
 images/
 files/
 wandb/
+src/zoo/.__pycache__
